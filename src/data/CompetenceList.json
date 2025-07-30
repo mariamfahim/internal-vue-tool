@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Company A",
+    "location": "Dresden",
+    "competence": "Cell Therapy",
+    "service": "GMP Manufacturing, QC Testing",
+    "contact": "Dr. Anna Müller, anna.mueller@companya.com",
+    "website": "https://companya.com"
+  },
+  {
+    "name": "University B",
+    "location": "Leipzig",
+    "competence": "Gene Editing",
+    "service": "CRISPR R&D, Training Workshops",
+    "contact": "Prof. Dr. John Doe, j.doe@universityb.de",
+    "website": "https://universityb.de"
+  },
+  {
+    "name": "Institute C",
+    "location": "Chemnitz",
+    "competence": "GMP Manufacturing",
+    "service": "Scale‑up, Process Validation",
+    "contact": "Ms. Sabine Schmidt, s.schmidt@institutec.de",
+    "website": "https://institutec.de"
+  }
+]
