@@ -1,26 +1,195 @@
 [
   {
-    "name": "Company A",
-    "location": "Dresden",
-    "competence": "Cell Therapy",
-    "service": "GMP Manufacturing, QC Testing",
-    "contact": "Dr. Anna Müller, anna.mueller@companya.com",
-    "website": "https://companya.com"
+    "Organisation": "University Leipzig",
+    "Area": "Early pre-clinical developments in cell & gene therapy",
+    "Competence": "<span class='font-bold'>Provision of blood cells from healthy donors as control for transfusion medicine</span>",
+    "Service Offers": "Provision of blood cells from healthy donors",
+    "Institution/Contact": "Transfusion medicin, R. Henschler",
+    "Further Information": "",
+    "City": "Leipzig"
   },
   {
-    "name": "University B",
-    "location": "Leipzig",
-    "competence": "Gene Editing",
-    "service": "CRISPR R&D, Training Workshops",
-    "contact": "Prof. Dr. John Doe, j.doe@universityb.de",
-    "website": "https://universityb.de"
+    "Organisation": "University Leipzig",
+    "Area": "Early pre-clinical developments in cell & gene therapy",
+    "Competence": "Development of therapeutic nanoparticles for clinical applications",
+    "Service Offers": "Non-viral transfection of nucleic acids to living cells (proprietary technology)",
+    "Institution/Contact": "Klinische Pharmakologie, Prof. Dr. Achim Aigner",
+    "Further Information": "",
+    "City": "Leipzig"
   },
   {
-    "name": "Institute C",
-    "location": "Chemnitz",
-    "competence": "GMP Manufacturing",
-    "service": "Scale‑up, Process Validation",
-    "contact": "Ms. Sabine Schmidt, s.schmidt@institutec.de",
-    "website": "https://institutec.de"
+    "Organisation": "University Leipzig",
+    "Area": "Early pre-clinical developments in cell & gene therapy",
+    "Competence": "Nanobioengineering \n - CAD (computer-aid design) of bio structures \n - Development and validation of nano/microstructures for multimodal optoelectronics for physiological monitoring in vivo \n - High-throughput screening of active substances \n - Non-invasive characterisation of cell/tissue (in-vivo imaging and monitoring) \n - Non-invasive methods for in-vivo diagnostics and therapy monitoring (label-free, high-content and high-throughput screening) with mobile and flexible sensors \n - Cell/tissue models (human stem-cell induced systems)",
+    "Service Offers": "",
+    "Institution/Contact": "Biotechnologisch-Biomedizinisches Zentrum \n Dr. Heinz-Georg Jahnke \n Prof. Dr. Annette Beck-Sickinger",
+    "Further Information": "https://www.bbz.uni-leipzig.de/forschung/technologielinien \nhttps://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_NanoBioengineering.pdf\n https://www.uni-leipzig.de/personenprofil/mitarbeiter/prof-dr-annette-beck-sickinger",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Early pre-clinical developments in cell & gene therapy",
+    "Competence": "<span class='font-bold'> Quality management & technology platform</span> \n - Cytogenetic analysis for pre-clinical tests of ATMP stability  \n- Cell characterization with fluorescent in-situ hybridization (FISH) \n- Identification of chromosomal aberrations/rearrangements with spectral karyotyping (SKY) \n- Analysis of cell authenticity with chromosomal GTG-banding \n- SNP-array analysis",
+    "Service Offers": "Consulting & contract research/service",
+    "Institution/Contact": "Sächsischer Inkubator für Klinische Translation (SIKT) \n Dr. Heidrun Holland",
+    "Further Information": "https://www.sikt.uni-leipzig.de/core-units/technologie-und-qualitaetsmanagement/",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Early pre-clinical developments in cell & gene therapy",
+    "Competence": "<span class='font-bold'> Cell culture & differentiation </span> (primary cultures, differentiation of melanocytes and macrophages)",
+    "Service Offers": "Proprietary technology",
+    "Institution/Contact": "Klinik fur Dermatologie, Venerologie und Allergologie, Dr. Vuc Savkovic",
+    "Further Information": "",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Early pre-clinical developments in cell & gene therapy",
+    "Competence": "Cell biology techniques\n - 3D-cultures \n - Chemotaxis assays, cell adhesion assays (static and flow systems),  transmigration assays, live cell tracking \n - Cell sorting (MACS and FACS) \n - Transfection assays, recombinant gene expression, gene silencing",
+    "Service Offers": "Consulting & contract research/service",
+    "Institution/Contact": "Klinik fur Dermatologie, Venerologie und Allergologie \n Prof. Dr. Jan Simon",
+    "Further Information": "https://www.uniklinikum-leipzig.de/einrichtungen/dermatologie/Seiten/forschung-prof-simon.aspx",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Late pre-clinical developments; toxicity/safety",
+    "Competence": " <span class='font-bold'> Animal studies </span> (husbandry and breeding of different animal models); includes irradiation procedures",
+    "Service Offers": "Consulting only, possible to carry out studies under GLP, at responsibility of researcher",
+    "Institution/Contact": "Tierschutzbeauftrage Medizinisch-Experimentelles Zentrum (MEZ), Medical Faculty Leipzig \n Dr. Petra Hirrlinger",
+    "Further Information": "https://www.uni-leipzig.de/universitaet/struktur/beauftragte-und-interessensvertretungen",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Late pre-clinical developments; toxicity/safety",
+    "Competence": "Husbandry and breeding of animals for pre-clinical studies (compliance with 6R model) \n - Modern barrier husbandry (SOPF status in breeding area; SPF status in experimental area) \n - Possibility of keeping genetically modified animals up to safety level S2",
+    "Service Offers": "",
+    "Institution/Contact": "Tierschutzbeauftrage SIKT \n  Dr. Christine Spröte",
+    "Further Information": "",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "GMP process development",
+    "Competence": "",
+    "Service Offers": "",
+    "Institution/Contact": "",
+    "Further Information": "",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "GMP production",
+    "Competence": "",
+    "Service Offers": "",
+    "Institution/Contact": "",
+    "Further Information": "",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "ATMP usage/applications",
+    "Competence": "<span class='font-bold'> ATMP monitoring: </span> \n - Detection of CAR-T cells in patient blood \n- Cytotoxicity assays \n - Monitoring of immunosupressive therapies \n - Multiplex analysis of serum parameters (including low-input)",
+    "Service Offers": "Consulting & contract service",
+    "Institution/Contact": "Clinical immunology \n Dr. Ulrich Sack",
+    "Further Information": "https://www.uniklinikum-leipzig.de/einrichtungen/immunologie/forschung/wissenschaftlicher-service",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Others",
+    "Competence": "<span class='font-bold'>Flow citometry</span>, also in S2 setting  \n- analytical flow cytometry, cell sorting, laser scanning cytometry  \n - analysis up to 20 simultaneous parameters; sorting with up to 15 simult. parameters and max sorting of 4 fractions",
+    "Service Offers": "Consulting & contract service",
+    "Institution/Contact": "Prof. Dr. Gottfried Alber / Dr. Uwe Mülle \n Kathrin Jäger",
+    "Further Information": "https://www.bbz.uni-leipzig.de/forschung/technologielinien \n https://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_Durchflusszytometrie.pdf \n https://home.uni-leipzig.de/izkf/index_fax.html",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Others",
+    "Competence": "<span class='font-bold'>Microarray and NGS for diagnostics </span>  \n- sanger sequencing  \n- IonTorrent (cancer panel, PCR re-seq, target capture) \n- Illumina HiScanSQ (WGS, miRNA, transcriptome, ChIP-seq, RIP-seq, exome, bisulfit) \n- microarray for gene expression, genotyping, promoter analysis and methilation analysis",
+    "Service Offers": "",
+    "Institution/Contact": "Klinik und Poliklinik für Hämatologie, Zelltherapie und Hämostaseologie \n Dr. Klaus Metzeler \nCore Unity IZKF \nDr. Knut Krohn",
+    "Further Information": "https://www.uniklinikum-leipzig.de/einrichtungen/medizinische-klinik-1/h%C3%A4matologie-und-zelltherapie/%C3%BCber-uns \n https://home.uni-leipzig.de/izkf/home_dna.html",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Others",
+    "Competence": "Bioinformatics \n- Analysis of next generation and third generation sequencing data using a specially developed pipeline for structured and documented processing and analysis \n- Statistical modeling and machine learning for molecular data (bulk, single-cell, spatial) \n- Multi-modal data analyses und integrative bioinformatics \n- Cell-cell communication \n- Other bioinformatics methods (e.g. in silico characterization of non-coding RNAs, 16S rDNA phylogenies, sequence alignments and structure alignments)",
+    "Service Offers": "",
+    "Institution/Contact": "Dr. Kristin Reiche",
+    "Further Information": "",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Others",
+    "Competence": "<span class='font-bold'>Protein analytics:  </span> \n - Peptide/protein synthesis \n - Protein structure analysis (crystallography, x-ray, dynamic light scattering, isothermal titration calorimetry, microscale thermophoresis) \n - Mass spectometry (LC-MS)",
+    "Service Offers": "Consulting & contract service",
+    "Institution/Contact": "Biotechnologisch-Biomedizinisches Zentrum \n Prof. Dr. Ralf Hoffmann (peptyde synthesis and analytics), Prof. Dr. Ralf Hoffmann (mass spec) \n Prof. \nDr. Norbert Sträter (structural analysis & prot synthesis), Prof. Dr. Ralf Hoffmann (proteomics) \nCore Unit IZKF, Dr. Sven Rothemund (peptide synthesis, arrays, expression, modification)",
+    "Further Information": "https://www.bbz.uni-leipzig.de/forschung/technologielinien \n https://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_Peptidsynthese.pdf \n https://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_Massenspektrometrie.pdf \n https://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_ProteinProduktion_01.pdf \n https://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_Proteomics.pdf \n https://home.uni-leipzig.de/izkf/peptide/mp_peptidsets.html",
+    "City": "Leipzig"
+  },
+
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Others",
+    "Competence": "<span class='font-bold'>Proteomics: </span>   \n  - Protein characterization ([liquid] chromatography, blotting, enzymatic assays, peptide mass fingerprinting [MALDI-TOF], de-novo sequencing, post-translational modification analysis, pharmacokinetics)",
+    "Service Offers": "",
+    "Institution/Contact": "",
+    "Further Information": "",
+    "City": "Leipzig"
+  },
+  {
+    "Organisation": "University Leipzig",
+    "Area": "Others",
+    "Competence": "<span class='font-bold'>Imaging: </span>  \n- microlaser platform for single-cell manipulation, microdissection, and optoinjection \n- Sensor/optic monitoring of cellular processes \n- confocal and multiphoton microscopy \n- scanning electron microscopy \n- STED, N-STORM, atomic force",
+    "Service Offers": "",
+    "Institution/Contact": "Biotechnologisch-Biomedizinisches Zentrum \n Prof. Dr. Peter Seibel \n Dr. Heinz-Georg Jahnke",
+    "Further Information": "https://www.bbz.uni-leipzig.de/forschung/technologielinien \n https://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_LifeTimeImaging.pdf \n https://www.bbz.uni-leipzig.de/fileadmin/Einrichtung_BBZ/2_Forschung/TPF_NanoElectricBeam.pdf",
+    "City": "Leipzig"
+  },
+  {
+    "Organisation": "",
+    "Area": "",
+    "Competence": "",
+    "Service Offers": "",
+    "Institution/Contact": "",
+    "Further Information": "",
+    "City": ""
+  },
+  {
+    "Organisation": "",
+    "Area": "",
+    "Competence": "",
+    "Service Offers": "",
+    "Institution/Contact": "",
+    "Further Information": "",
+    "City": ""
+  },
+  {
+    "Organisation": "",
+    "Area": "",
+    "Competence": "",
+    "Service Offers": "",
+    "Institution/Contact": "",
+    "Further Information": "",
+    "City": ""
   }
 ]
