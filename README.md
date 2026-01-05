@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 # competence-db
 
 <<<<<<< HEAD
+=======
+# internal-vue-tool
+
+>>>>>>> d171e73ed300a29d5c86bb655fa60ea6ac24667c
 
 
 ## Getting started
@@ -16,14 +21,22 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
+<<<<<<< HEAD
 git remote add origin https://gitlab.hrz.tu-chemnitz.de/masa599b-at-tu-dresden.de/competence-db.git
+=======
+git remote add origin https://gitlab.hrz.tu-chemnitz.de/masa599b-at-tu-dresden.de/internal-vue-tool.git
+>>>>>>> d171e73ed300a29d5c86bb655fa60ea6ac24667c
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
+<<<<<<< HEAD
 - [ ] [Set up project integrations](https://gitlab.hrz.tu-chemnitz.de/masa599b-at-tu-dresden.de/competence-db/-/settings/integrations)
+=======
+- [ ] [Set up project integrations](https://gitlab.hrz.tu-chemnitz.de/masa599b-at-tu-dresden.de/internal-vue-tool/-/settings/integrations)
+>>>>>>> d171e73ed300a29d5c86bb655fa60ea6ac24667c
 
 ## Collaborate with your team
 
@@ -92,6 +105,7 @@ For open source projects, say how it is licensed.
 
 ## Project status
 If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+<<<<<<< HEAD
 =======
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -121,3 +135,5 @@ npm run dev
 npm run build
 ```
 >>>>>>> Initial commit
+=======
+>>>>>>> d171e73ed300a29d5c86bb655fa60ea6ac24667c
