@@ -1,9 +1,5 @@
 <template>
   <div class="max-w-screen-xl mx-auto p-6 overflow-x-auto">
-    <h2 class="mb-4 text-2xl font-semibold">
-      ✅ Data loaded: {{ dataList.length }} items
-    </h2>
-
     <!-- FILTER ROW -->
     <div class="mb-6 flex items-start space-x-4">
       <!-- AREA SELECT -->
@@ -165,20 +161,13 @@
         <tr>
           <th
             colspan="7"
-            class="px-6 py-4 text-center font-bold text-white bg-[var(--brand-fourth)]"
+            class="px-6 py-4 text-center font-bold table-header-associated"
           >
             Associated Partners
           </th>
         </tr>
-        <tr>
-          <th
-            colspan="7"
-            class="px-6 py-4 text-center font-bold text-white bg-[var(--brand-fourth)]"
-          >
-            Leipzig
-          </th>
-        </tr>
-        <tr class="bg-[var(--brand-fifth)] text-white">
+
+        <tr class="table-header-columns">
           <th class="px-6 py-3">Organisation</th>
           <th class="px-6 py-3">Area</th>
           <th class="px-6 py-3">Competence</th>
@@ -186,6 +175,14 @@
           <th class="px-6 py-3">Institution/Contact</th>
           <th class="px-6 py-3">Further Information</th>
           <th class="px-6 py-3">City</th>
+        </tr>
+        <tr>
+          <th
+            colspan="7"
+            class="px-6 py-4 text-center font-bold table-header-leipzig"
+          >
+            Leipzig
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -416,5 +413,19 @@ th:nth-child(3) {
   min-width: 300px; /* adjust as needed */
   max-width: 500px; /* optional */
   word-break: break-word; /* wrap long text nicely */
+}
+
+/* Zebra striping for table body rows */
+tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* white */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #cccccc; /* light gray */
+}
+
+/* Ensure text remains readable */
+tbody tr td {
+  color: #000000;
 }
 </style>

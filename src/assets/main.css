@@ -1,5 +1,9 @@
 @import './base.css';
 
+:root {
+  --brand-associated: #37AB9C;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
