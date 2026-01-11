@@ -17,6 +17,23 @@
         </select>
       </div>
 
+      <!-- ORGANISATION SELECT -->
+      <div class="flex items-center space-x-4">
+        <label for="organisationFilter" class="font-medium"
+          >Filter by Organisation:</label
+        >
+        <select
+          id="organisationFilter"
+          v-model="selectedOrganisation"
+          class="border border-gray-300 rounded px-3 py-1"
+        >
+          <option value="">All Organisations</option>
+          <option v-for="org in uniqueOrganisations" :key="org" :value="org">
+            {{ org }}
+          </option>
+        </select>
+      </div>
+
       <!-- COMPETENCE DROPDOWN -->
       <div class="relative" ref="dropdownRoot">
         <button
@@ -245,6 +262,13 @@ const uniqueAreas = computed(() => {
   return [...new Set(areas)].sort();
 });
 
+// ORGANISATION filter
+const selectedOrganisation = ref("");
+const uniqueOrganisations = computed(() => {
+  const orgs = dataList.value.map((r) => r.organization || "");
+  return [...new Set(orgs)].sort();
+});
+
 // --- COMPETENCE FILTER VARIABLES ---
 const competenceKeywords = [
   "Development of ATMPs",
@@ -302,6 +326,11 @@ const filteredList = computed(() => {
     if (area && norm(item.area) !== area) return false;
 
     const compText = stripHTML(item.competence);
+
+    const organisation = norm(selectedOrganisation.value);
+
+    // ORGANISATION filter
+    if (organisation && norm(item.organization) !== organisation) return false;
 
     // predefined keywords: if any selected, require at least one match
     if (selectedKeys.length > 0) {
