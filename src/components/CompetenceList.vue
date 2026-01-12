@@ -444,17 +444,17 @@ th:nth-child(3) {
   word-break: break-word; /* wrap long text nicely */
 }
 
-/* Zebra striping for table body rows */
+/* Zebra striping */
 tbody tr:nth-child(odd) {
-  background-color: #ffffff; /* white */
+  background-color: #ffffff;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #cccccc; /* light gray */
+  background-color: #cccccc;
 }
 
-/* Ensure text remains readable */
-tbody tr td {
-  color: #000000;
+/* Restore visible grid lines on gray rows */
+tbody tr:nth-child(even) td {
+  border-color: #999999; /* darker than #ccc */
 }
 </style>
