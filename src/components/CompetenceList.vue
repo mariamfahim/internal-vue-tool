@@ -289,29 +289,33 @@ const loginPass = ref("");
 const loginError = ref("");
 
 // ⚠️ Demo credentials (NOT secure)
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "1234";
+
 // Restore login from localStorage
-onMounted(() => {
+onMounted(async () => {
   testSupabase();
   loadPartners();
 
-  const saved = localStorage.getItem("isAdmin");
-  if (saved === "true") {
-    isAdmin.value = true;
-  }
+  const { data } = await supabase.auth.getSession();
+  isAdmin.value = !!data.session;
 });
 
-function login() {
-  if (loginUser.value === ADMIN_USER && loginPass.value === ADMIN_PASS) {
-    isAdmin.value = true;
-    localStorage.setItem("isAdmin", "true");
-    loginError.value = "";
-    loginUser.value = "";
-    loginPass.value = "";
+async function login() {
+  const { error } = await supabase.auth.signInWithPassword({
+    email: loginUser.value,
+    password: loginPass.value,
+  });
+
+  if (error) {
+    loginError.value = error.message;
   } else {
-    loginError.value = "Invalid username or password.";
+    isAdmin.value = true;
+    loginError.value = "";
   }
+}
+
+async function logout() {
+  await supabase.auth.signOut();
+  isAdmin.value = false;
 }
 
 async function loadPartners() {
@@ -328,11 +332,6 @@ async function loadPartners() {
   }
 }
 
-function logout() {
-  isAdmin.value = false;
-  localStorage.removeItem("isAdmin");
-}
-
 async function testSupabase() {
   const { data, error } = await supabase.from("partners").select("*").limit(3);
 
@@ -346,11 +345,6 @@ async function deleteItem(item) {
   if (error) alert("Delete failed");
   else await loadPartners();
 }
-
-// props
-const props = defineProps({
-  isAdmin: { type: Boolean, default: false },
-});
 
 // normalize incoming keys
 const dataList = ref([]);
