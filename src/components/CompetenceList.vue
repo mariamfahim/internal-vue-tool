@@ -121,6 +121,44 @@
       </div>
     </div>
 
+    <!-- ADMIN LOGIN -->
+    <div v-if="!isAdmin" class="mb-6 p-4 border rounded bg-gray-50 max-w-md">
+      <h3 class="font-semibold mb-2">Admin Login</h3>
+
+      <div class="space-y-2">
+        <input
+          v-model="loginUser"
+          placeholder="Username"
+          class="border px-2 py-1 w-full"
+        />
+
+        <input
+          v-model="loginPass"
+          type="password"
+          placeholder="Password"
+          class="border px-2 py-1 w-full"
+        />
+
+        <button
+          @click="login"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Login
+        </button>
+
+        <p v-if="loginError" class="text-red-600 text-sm">
+          {{ loginError }}
+        </p>
+      </div>
+    </div>
+
+    <!-- LOGOUT -->
+    <div v-if="isAdmin" class="mb-4 flex justify-end">
+      <button @click="logout" class="text-sm underline text-red-600">
+        Logout admin
+      </button>
+    </div>
+
     <!-- ADMIN‐ONLY ADD FORM -->
     <div
       v-if="isAdmin"
@@ -192,6 +230,7 @@
           <th class="px-6 py-3">Institution/Contact</th>
           <th class="px-6 py-3">Further Information</th>
           <th class="px-6 py-3">City</th>
+          <th v-if="isAdmin" class="px-6 py-3">Actions</th>
         </tr>
         <tr>
           <th
@@ -227,6 +266,12 @@
           <td class="px-6 py-3">{{ item.institutionContact }}</td>
           <td class="px-6 py-3">{{ item.furtherInfo }}</td>
           <td class="px-6 py-3">{{ item.city }}</td>
+
+          <td v-if="isAdmin" class="px-6 py-3">
+            <button @click="deleteItem(item)" class="text-red-600 underline">
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -235,6 +280,72 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import rawData from "../data/CompetenceList.json";
+import { supabase } from "../lib/supabase";
+
+// --- ADMIN AUTH STATE ---
+const isAdmin = ref(false);
+const loginUser = ref("");
+const loginPass = ref("");
+const loginError = ref("");
+
+// ⚠️ Demo credentials (NOT secure)
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "1234";
+// Restore login from localStorage
+onMounted(() => {
+  testSupabase();
+  loadPartners();
+
+  const saved = localStorage.getItem("isAdmin");
+  if (saved === "true") {
+    isAdmin.value = true;
+  }
+});
+
+function login() {
+  if (loginUser.value === ADMIN_USER && loginPass.value === ADMIN_PASS) {
+    isAdmin.value = true;
+    localStorage.setItem("isAdmin", "true");
+    loginError.value = "";
+    loginUser.value = "";
+    loginPass.value = "";
+  } else {
+    loginError.value = "Invalid username or password.";
+  }
+}
+
+async function loadPartners() {
+  const { data, error } = await supabase
+    .from("partners")
+    .select("*")
+    .order("organization");
+
+  if (error) {
+    console.error("Load error:", error);
+  } else {
+    dataList.value = data;
+    console.log("Loaded from Supabase:", data.length);
+  }
+}
+
+function logout() {
+  isAdmin.value = false;
+  localStorage.removeItem("isAdmin");
+}
+
+async function testSupabase() {
+  const { data, error } = await supabase.from("partners").select("*").limit(3);
+
+  console.log("Supabase test result:", data);
+  console.log("Supabase error:", error);
+}
+
+async function deleteItem(item) {
+  const { error } = await supabase.from("partners").delete().eq("id", item.id);
+
+  if (error) alert("Delete failed");
+  else await loadPartners();
+}
 
 // props
 const props = defineProps({
@@ -242,18 +353,7 @@ const props = defineProps({
 });
 
 // normalize incoming keys
-const dataList = ref(
-  rawData.map((item) => ({
-    organization: item["Organisation"] ?? item.organization ?? "",
-    area: item["Area"] ?? item.area ?? "",
-    competence: item["Competence"] ?? item.competence ?? "",
-    serviceOffers: item["Service Offers"] ?? item.serviceOffers ?? "",
-    institutionContact:
-      item["Institution/Contact"] ?? item.institutionContact ?? "",
-    furtherInfo: item["Further Information"] ?? item.furtherInfo ?? "",
-    city: item["City"] ?? item.city ?? "",
-  }))
-);
+const dataList = ref([]);
 
 // AREA filter
 const selectedArea = ref("");
@@ -356,12 +456,45 @@ const newItem = ref({
   city: "",
 });
 
-function addItem() {
+async function addItem() {
+  // basic validation
   if (!newItem.value.organization || !newItem.value.area) {
-    return alert("Organisation and Area are required.");
+    alert("Organisation and Area are required.");
+    return;
   }
-  dataList.value.push({ ...newItem.value });
-  Object.keys(newItem.value).forEach((k) => (newItem.value[k] = ""));
+
+  const payload = {
+    organization: newItem.value.organization,
+    area: newItem.value.area,
+    competence: newItem.value.competence,
+    serviceoffers: newItem.value.serviceOffers,
+    institutioncontact: newItem.value.institutionContact,
+    furtherinfo: newItem.value.furtherInfo,
+    city: newItem.value.city,
+  };
+
+  console.log("Sending to Supabase:", payload);
+
+  const { data, error } = await supabase
+    .from("partners")
+    .insert([payload])
+    .select();
+
+  if (error) {
+    console.error("Insert error:", error);
+    alert("Failed to add partner: " + error.message);
+    return;
+  }
+
+  console.log("Insert success:", data);
+
+  // reload table data
+  await loadPartners();
+
+  // clear form
+  Object.keys(newItem.value).forEach((k) => {
+    newItem.value[k] = "";
+  });
 }
 
 // Close dropdown on outside click or Escape
