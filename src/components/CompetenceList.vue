@@ -244,7 +244,7 @@
       <tbody>
         <tr
           v-for="(item, idx) in filteredList"
-          :key="idx"
+          :key="item.id"
           class="bg-[var(--brand-secondary)]"
         >
           <td class="px-6 py-3">{{ item.organization }}</td>
