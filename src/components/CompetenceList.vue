@@ -182,17 +182,17 @@
           class="border px-2 py-1"
         />
         <input
-          v-model="newItem.serviceOffers"
+          v-model="newItem.serviceoffers"
           placeholder="Service Offers"
           class="border px-2 py-1"
         />
         <input
-          v-model="newItem.institutionContact"
+          v-model="newItem.institutioncontact"
           placeholder="Contact"
           class="border px-2 py-1"
         />
         <input
-          v-model="newItem.furtherInfo"
+          v-model="newItem.furtherinfo"
           placeholder="Further Info"
           class="border px-2 py-1"
         />
@@ -262,9 +262,9 @@
 
           <td class="px-6 py-3" v-html="item.competence"></td>
 
-          <td class="px-6 py-3">{{ item.serviceOffers }}</td>
-          <td class="px-6 py-3">{{ item.institutionContact }}</td>
-          <td class="px-6 py-3">{{ item.furtherInfo }}</td>
+          <td class="px-6 py-3">{{ item.serviceoffers }}</td>
+          <td class="px-6 py-3">{{ item.institutioncontact }}</td>
+          <td class="px-6 py-3">{{ item.furtherinfo }}</td>
           <td class="px-6 py-3">{{ item.city }}</td>
 
           <td v-if="isAdmin" class="px-6 py-3">
@@ -444,14 +444,13 @@ const newItem = ref({
   organization: "",
   area: "",
   competence: "",
-  serviceOffers: "",
-  institutionContact: "",
-  furtherInfo: "",
+  serviceoffers: "",
+  institutioncontact: "",
+  furtherinfo: "",
   city: "",
 });
 
 async function addItem() {
-  // basic validation
   if (!newItem.value.organization || !newItem.value.area) {
     alert("Organisation and Area are required.");
     return;
@@ -461,13 +460,11 @@ async function addItem() {
     organization: newItem.value.organization,
     area: newItem.value.area,
     competence: newItem.value.competence,
-    serviceoffers: newItem.value.serviceOffers,
-    institutioncontact: newItem.value.institutionContact,
-    furtherinfo: newItem.value.furtherInfo,
+    serviceoffers: newItem.value.serviceoffers,
+    institutioncontact: newItem.value.institutioncontact,
+    furtherinfo: newItem.value.furtherinfo,
     city: newItem.value.city,
   };
-
-  console.log("Sending to Supabase:", payload);
 
   const { data, error } = await supabase
     .from("partners")
@@ -475,20 +472,14 @@ async function addItem() {
     .select();
 
   if (error) {
-    console.error("Insert error:", error);
-    alert("Failed to add partner: " + error.message);
+    console.error(error);
+    alert(error.message);
     return;
   }
 
-  console.log("Insert success:", data);
-
-  // reload table data
   await loadPartners();
 
-  // clear form
-  Object.keys(newItem.value).forEach((k) => {
-    newItem.value[k] = "";
-  });
+  Object.keys(newItem.value).forEach((k) => (newItem.value[k] = ""));
 }
 
 // Close dropdown on outside click or Escape
