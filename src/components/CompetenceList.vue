@@ -1,5 +1,9 @@
 <template>
   <div class="max-w-screen-xl mx-auto p-6 overflow-x-auto">
+    <h1 class="text-3xl font-bold text-center mb-8 text-[var(--brand-fourth)]">
+      SaxoCell Competences Table
+    </h1>
+
     <!-- FILTER ROW -->
     <div class="mb-6 flex items-start space-x-4">
       <!-- AREA SELECT -->
@@ -215,8 +219,9 @@
       <thead>
         <tr>
           <th
-            colspan="7"
-            class="px-6 py-4 text-center font-bold table-header-associated"
+            :colspan="isAdmin ? 8 : 7"
+            class="px-6 py-4 text-center font-bold text-white"
+            style="background-color: #37ab9c"
           >
             Associated Partners
           </th>
@@ -232,14 +237,7 @@
           <th class="px-6 py-3">City</th>
           <th v-if="isAdmin" class="px-6 py-3">Actions</th>
         </tr>
-        <tr>
-          <th
-            colspan="7"
-            class="px-6 py-4 text-center font-bold table-header-leipzig"
-          >
-            Leipzig
-          </th>
-        </tr>
+        <tr></tr>
       </thead>
       <tbody>
         <tr
