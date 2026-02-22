@@ -37,91 +37,15 @@
           </option>
         </select>
       </div>
-
-      <!-- COMPETENCE DROPDOWN -->
-      <div class="relative" ref="dropdownRoot">
-        <button
-          @click="toggleCompetenceDropdown"
-          :aria-expanded="showCompetenceDropdown"
-          aria-haspopup="true"
-          aria-label="Open competence filter"
-          class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-gray-300 bg-white text-slate-800 p-1 shadow z-50"
-        >
-          <!-- SVG uses 'fill-current' so it inherits the text color above -->
-          <svg
-            class="w-4 h-4 fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            aria-hidden="true"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5.23 7.21a.75.75 0 011.06.02L10 11.584l3.71-4.354a.75.75 0 111.14.98l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-
-        <!-- Dropdown panel -->
-        <transition name="fade">
-          <div
-            v-if="showCompetenceDropdown"
-            ref="dropdownPanel"
-            class="absolute mt-2 w-80 bg-white border rounded shadow-lg z-50 p-3"
-            @click.stop
-            role="dialog"
-            aria-label="Filter by competence"
-          >
-            <!-- Quick actions -->
-            <div class="flex items-center justify-between mb-2">
-              <strong>Filter by Competence</strong>
-              <div class="text-xs text-slate-500">
-                <button @click="clearCompetenceFilters" class="underline">
-                  Clear
-                </button>
-              </div>
-            </div>
-
-            <!-- Predefined keywords -->
-            <div
-              class="grid grid-cols-1 gap-2 max-h-36 overflow-auto pr-2 mb-3"
-            >
-              <label
-                v-for="kw in competenceKeywords"
-                :key="kw"
-                class="inline-flex items-center space-x-2"
-              >
-                <input
-                  type="checkbox"
-                  :value="kw"
-                  v-model="selectedCompetenceKeywords"
-                  class="w-4 h-4"
-                />
-                <span class="text-sm">{{ kw }}</span>
-              </label>
-            </div>
-
-            <!-- Free text search -->
-            <div class="flex items-center space-x-2">
-              <input
-                v-model="competenceSearch"
-                placeholder="Search in competence text..."
-                class="flex-1 border px-2 py-1 rounded"
-              />
-              <button
-                @click="applySearch"
-                class="px-2 py-1 border rounded text-sm"
-              >
-                Apply
-              </button>
-            </div>
-
-            <p class="mt-2 text-xs text-slate-500">
-              Tip: use checkboxes for quick phrase filters or type any fragment
-              and click Apply.
-            </p>
-          </div>
-        </transition>
+      <!-- GLOBAL SEARCH -->
+      <div class="flex items-center space-x-4">
+        <label class="font-medium">Search:</label>
+        <input
+          v-model="globalSearch"
+          type="text"
+          placeholder="Search in all columns..."
+          class="border border-gray-300 rounded px-3 py-1 w-64"
+        />
       </div>
     </div>
 
@@ -375,6 +299,8 @@ const competenceKeywords = [
 const selectedCompetenceKeywords = ref([]);
 const competenceSearch = ref("");
 
+const globalSearch = ref("");
+
 // Dropdown UI state and refs
 const showCompetenceDropdown = ref(false);
 const dropdownRoot = ref(null);
@@ -410,28 +336,26 @@ function stripHTML(s) {
 // filteredList applies area + competence keywords + free text
 const filteredList = computed(() => {
   const area = norm(selectedArea.value);
-  const selectedKeys = selectedCompetenceKeywords.value.map(norm);
-  const freeSearch = norm(competenceSearch.value).trim();
+  const organisation = norm(selectedOrganisation.value);
+  const search = norm(globalSearch.value).trim();
 
   return dataList.value.filter((item) => {
-    // AREA filter
     if (area && norm(item.area) !== area) return false;
 
-    const compText = stripHTML(item.competence);
-
-    const organisation = norm(selectedOrganisation.value);
-
-    // ORGANISATION filter
     if (organisation && norm(item.organization) !== organisation) return false;
 
-    // predefined keywords: if any selected, require at least one match
-    if (selectedKeys.length > 0) {
-      const any = selectedKeys.some((kw) => compText.includes(kw));
-      if (!any) return false;
-    }
+    if (search) {
+      const combined =
+        norm(item.organization) +
+        norm(item.area) +
+        norm(item.competence) +
+        norm(item.serviceoffers) +
+        norm(item.institutioncontact) +
+        norm(item.furtherinfo) +
+        norm(item.city);
 
-    // free-text search
-    if (freeSearch && !compText.includes(freeSearch)) return false;
+      if (!combined.includes(search)) return false;
+    }
 
     return true;
   });
