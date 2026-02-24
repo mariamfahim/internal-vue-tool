@@ -1,9 +1,7 @@
 <template>
-  <div class="max-w-screen-xl mx-auto p-6 overflow-x-auto">
-    <h1 class="text-3xl font-bold text-center mb-8 text-[var(--brand-fourth)]">
-      SaxoCell Competences Table
-    </h1>
+  <!-- put this BEFORE your existing main container -->
 
+  <div class="max-w-screen-xl mx-auto p-6">
     <!-- FILTER ROW -->
     <div class="mb-6 flex items-start space-x-4">
       <!-- AREA SELECT -->
@@ -129,6 +127,11 @@
           placeholder="City"
           class="border px-2 py-1"
         />
+        <input
+          v-model="newItem.email"
+          placeholder="Email"
+          class="border px-2 py-1"
+        />
       </div>
       <button
         @click="addItem"
@@ -139,64 +142,70 @@
     </div>
 
     <!-- DATA TABLE -->
-    <table class="table-fixed w-full text-lg">
-      <thead>
-        <tr>
-          <th
-            :colspan="isAdmin ? 8 : 7"
-            class="px-6 py-4 text-center font-bold text-white"
-            style="background-color: #37ab9c"
+    <div class="overflow-x-auto">
+      <table class="table-fixed w-full text-lg">
+        <thead>
+          <tr>
+            <th
+              :colspan="isAdmin ? 9 : 7"
+              class="px-6 py-4 text-center font-extrabold text-white !text-white"
+              style="background-color: #37ab9c"
+            >
+              Associated Partners
+            </th>
+          </tr>
+
+          <tr class="table-header-columns">
+            <th class="px-6 py-3">Organisation</th>
+            <th class="px-6 py-3">Area</th>
+            <th class="px-6 py-3">Competence</th>
+            <th class="px-6 py-3">Service Offers</th>
+            <th class="px-6 py-3">Institution/Contact</th>
+            <th class="px-6 py-3">Further Information</th>
+            <th class="px-6 py-3">City</th>
+            <!-- email only visible to admins -->
+            <th v-if="isAdmin" class="px-6 py-3">Email</th>
+            <th v-if="isAdmin" class="px-6 py-3">Actions</th>
+          </tr>
+          <tr></tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(item, idx) in filteredList"
+            :key="item.id"
+            class="bg-[var(--brand-secondary)]"
           >
-            Associated Partners
-          </th>
-        </tr>
+            <td class="px-6 py-3">{{ item.organization }}</td>
 
-        <tr class="table-header-columns">
-          <th class="px-6 py-3">Organisation</th>
-          <th class="px-6 py-3">Area</th>
-          <th class="px-6 py-3">Competence</th>
-          <th class="px-6 py-3">Service Offers</th>
-          <th class="px-6 py-3">Institution/Contact</th>
-          <th class="px-6 py-3">Further Information</th>
-          <th class="px-6 py-3">City</th>
-          <th v-if="isAdmin" class="px-6 py-3">Actions</th>
-        </tr>
-        <tr></tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(item, idx) in filteredList"
-          :key="item.id"
-          class="bg-[var(--brand-secondary)]"
-        >
-          <td class="px-6 py-3">{{ item.organization }}</td>
+            <!-- Area: bold for body cells; special extra-bold + color for Leipzig -->
+            <td
+              class="px-6 py-3"
+              :class="{
+                'font-semibold': true,
+                'font-black text-[var(--brand-fourth)]':
+                  item.area === 'Leipzig',
+              }"
+            >
+              {{ item.area }}
+            </td>
 
-          <!-- Area: bold for body cells; special extra-bold + color for Leipzig -->
-          <td
-            class="px-6 py-3"
-            :class="{
-              'font-semibold': true,
-              'font-black text-[var(--brand-fourth)]': item.area === 'Leipzig',
-            }"
-          >
-            {{ item.area }}
-          </td>
+            <td class="px-6 py-3" v-html="item.competence"></td>
 
-          <td class="px-6 py-3" v-html="item.competence"></td>
+            <td class="px-6 py-3">{{ item.serviceoffers }}</td>
+            <td class="px-6 py-3">{{ item.institutioncontact }}</td>
+            <td class="px-6 py-3">{{ item.furtherinfo }}</td>
+            <td class="px-6 py-3">{{ item.city }}</td>
 
-          <td class="px-6 py-3">{{ item.serviceoffers }}</td>
-          <td class="px-6 py-3">{{ item.institutioncontact }}</td>
-          <td class="px-6 py-3">{{ item.furtherinfo }}</td>
-          <td class="px-6 py-3">{{ item.city }}</td>
-
-          <td v-if="isAdmin" class="px-6 py-3">
-            <button @click="deleteItem(item)" class="text-red-600 underline">
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td v-if="isAdmin" class="px-6 py-3">{{ item.email }}</td>
+            <td v-if="isAdmin" class="px-6 py-3">
+              <button @click="deleteItem(item)" class="text-red-600 underline">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 <script setup>
@@ -285,43 +294,7 @@ const uniqueOrganisations = computed(() => {
   return [...new Set(orgs)].sort();
 });
 
-// --- COMPETENCE FILTER VARIABLES ---
-const competenceKeywords = [
-  "Development of ATMPs",
-  "Target validation",
-  "Optimization of CAR cells",
-  "Generation and testing of genetically-modified immunocells",
-  "Provision of blood cells from healthy donors as control for transfusion medicine",
-  "Cell Therapy",
-  // extend as needed
-];
-
-const selectedCompetenceKeywords = ref([]);
-const competenceSearch = ref("");
-
 const globalSearch = ref("");
-
-// Dropdown UI state and refs
-const showCompetenceDropdown = ref(false);
-const dropdownRoot = ref(null);
-const dropdownPanel = ref(null);
-
-function toggleCompetenceDropdown() {
-  showCompetenceDropdown.value = !showCompetenceDropdown.value;
-}
-
-function closeCompetenceDropdown() {
-  showCompetenceDropdown.value = false;
-}
-
-function applySearch() {
-  closeCompetenceDropdown();
-}
-
-function clearCompetenceFilters() {
-  selectedCompetenceKeywords.value = [];
-  competenceSearch.value = "";
-}
 
 // helper for normalized comparisons
 function norm(s) {
@@ -352,7 +325,8 @@ const filteredList = computed(() => {
         norm(item.serviceoffers) +
         norm(item.institutioncontact) +
         norm(item.furtherinfo) +
-        norm(item.city);
+        norm(item.city) +
+        norm(item.email);
 
       if (!combined.includes(search)) return false;
     }
@@ -370,6 +344,7 @@ const newItem = ref({
   institutioncontact: "",
   furtherinfo: "",
   city: "",
+  email: "",
 });
 
 async function addItem() {
@@ -386,6 +361,7 @@ async function addItem() {
     institutioncontact: newItem.value.institutioncontact,
     furtherinfo: newItem.value.furtherinfo,
     city: newItem.value.city,
+    email: newItem.value.email,
   };
 
   const { data, error } = await supabase
@@ -403,29 +379,6 @@ async function addItem() {
 
   Object.keys(newItem.value).forEach((k) => (newItem.value[k] = ""));
 }
-
-// Close dropdown on outside click or Escape
-function onDocumentClick(e) {
-  const root = dropdownRoot.value;
-  if (!root) return;
-  if (!root.contains(e.target)) {
-    closeCompetenceDropdown();
-  }
-}
-
-function onDocumentKey(e) {
-  if (e.key === "Escape") closeCompetenceDropdown();
-}
-
-onMounted(() => {
-  document.addEventListener("click", onDocumentClick);
-  document.addEventListener("keydown", onDocumentKey);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener("click", onDocumentClick);
-  document.removeEventListener("keydown", onDocumentKey);
-});
 </script>
 
 <style scoped>
@@ -435,12 +388,17 @@ table {
   border: 2px solid #ccc;
 }
 
-th,
-td {
-  border: 1px solid #ccc;
+th {
   text-align: center;
+  border: 1px solid #ccc;
   padding: 0.75rem;
-  white-space: pre-line; /* show \n as new lines */
+}
+
+td {
+  text-align: left;
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  white-space: pre-line;
 }
 
 /* Only the Area column body cells bold */
@@ -449,8 +407,9 @@ td:nth-child(2) {
 }
 
 /* Force the top "Associated Partners" header bold */
-th[colspan="7"] {
-  font-weight: 700 !important;
+th[colspan] {
+  font-weight: 800 !important;
+  color: white !important;
 }
 
 /* Optional class to highlight Leipzig (use class binding in template) */
