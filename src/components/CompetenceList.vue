@@ -1,6 +1,19 @@
 <template>
-  <!-- put this BEFORE your existing main container -->
-
+  <!-- FULL WIDTH TITLE -->
+  <div style="width: 100vw; display: flex; justify-content: center">
+    <h1
+      style="
+        font-size: 2rem;
+        font-weight: 800;
+        text-align: center;
+        color: var(--brand-fourth);
+        white-space: nowrap;
+        margin: 2rem 0;
+      "
+    >
+      SaxoCell Competences Table
+    </h1>
+  </div>
   <div class="max-w-screen-xl mx-auto p-6">
     <!-- FILTER ROW -->
     <div class="mb-6 flex items-start space-x-4">
@@ -140,6 +153,11 @@
         + Add Partner
       </button>
     </div>
+    <p class="italic text-gray-700 mb-6">
+      If you are interested in contacting any of the organizations for a
+      specific competence or if you have any questions please contact us at
+      <a href="mailto:info@saxocell.de" class="underline"> info@saxocell.de </a>
+    </p>
 
     <!-- DATA TABLE -->
     <div class="overflow-x-auto">
@@ -175,32 +193,130 @@
             :key="item.id"
             class="bg-[var(--brand-secondary)]"
           >
-            <td class="px-6 py-3">{{ item.organization }}</td>
+            <!-- Organisation -->
+            <td class="px-6 py-3">
+              <template v-if="editingId === item.id">
+                <input
+                  v-model="editForm.organization"
+                  class="border px-2 py-1 w-full"
+                />
+              </template>
+              <template v-else>{{ item.organization }}</template>
+            </td>
 
-            <!-- Area: bold for body cells; special extra-bold + color for Leipzig -->
+            <!-- Area -->
             <td
               class="px-6 py-3"
               :class="{
-                'font-semibold': true,
                 'font-black text-[var(--brand-fourth)]':
                   item.area === 'Leipzig',
               }"
             >
-              {{ item.area }}
+              <template v-if="editingId === item.id">
+                <input
+                  v-model="editForm.area"
+                  class="border px-2 py-1 w-full"
+                />
+              </template>
+              <template v-else>{{ item.area }}</template>
             </td>
 
-            <td class="px-6 py-3" v-html="item.competence"></td>
+            <!-- Competence -->
+            <td class="px-6 py-3">
+              <template v-if="editingId === item.id">
+                <textarea
+                  v-model="editForm.competence"
+                  class="border px-2 py-1 w-full"
+                ></textarea>
+              </template>
+              <template v-else v-html="item.competence"></template>
+            </td>
 
-            <td class="px-6 py-3">{{ item.serviceoffers }}</td>
-            <td class="px-6 py-3">{{ item.institutioncontact }}</td>
-            <td class="px-6 py-3">{{ item.furtherinfo }}</td>
-            <td class="px-6 py-3">{{ item.city }}</td>
+            <!-- Service offers -->
+            <td class="px-6 py-3">
+              <template v-if="editingId === item.id">
+                <input
+                  v-model="editForm.serviceoffers"
+                  class="border px-2 py-1 w-full"
+                />
+              </template>
+              <template v-else>{{ item.serviceoffers }}</template>
+            </td>
 
-            <td v-if="isAdmin" class="px-6 py-3">{{ item.email }}</td>
+            <!-- Institution contact -->
+            <td class="px-6 py-3">
+              <template v-if="editingId === item.id">
+                <input
+                  v-model="editForm.institutioncontact"
+                  class="border px-2 py-1 w-full"
+                />
+              </template>
+              <template v-else>{{ item.institutioncontact }}</template>
+            </td>
+
+            <!-- Further info -->
+            <td class="px-6 py-3">
+              <template v-if="editingId === item.id">
+                <input
+                  v-model="editForm.furtherinfo"
+                  class="border px-2 py-1 w-full"
+                />
+              </template>
+              <template v-else>{{ item.furtherinfo }}</template>
+            </td>
+
+            <!-- City -->
+            <td class="px-6 py-3">
+              <template v-if="editingId === item.id">
+                <input
+                  v-model="editForm.city"
+                  class="border px-2 py-1 w-full"
+                />
+              </template>
+              <template v-else>{{ item.city }}</template>
+            </td>
+
+            <!-- Email (admin only) -->
             <td v-if="isAdmin" class="px-6 py-3">
-              <button @click="deleteItem(item)" class="text-red-600 underline">
-                Delete
-              </button>
+              <template v-if="editingId === item.id">
+                <input
+                  v-model="editForm.email"
+                  class="border px-2 py-1 w-full"
+                />
+              </template>
+              <template v-else>{{ item.email }}</template>
+            </td>
+
+            <!-- Actions (admin only) -->
+            <td v-if="isAdmin" class="px-6 py-3">
+              <template v-if="editingId === item.id">
+                <button
+                  @click="saveEdit(item.id)"
+                  class="mr-2 bg-blue-600 text-white px-2 py-1 rounded"
+                >
+                  Save
+                </button>
+                <button
+                  @click="cancelEdit"
+                  class="bg-gray-200 px-2 py-1 rounded"
+                >
+                  Cancel
+                </button>
+              </template>
+              <template v-else>
+                <button
+                  @click="startEdit(item)"
+                  class="mr-2 text-blue-600 underline"
+                >
+                  Edit
+                </button>
+                <button
+                  @click="deleteItem(item)"
+                  class="text-red-600 underline"
+                >
+                  Delete
+                </button>
+              </template>
             </td>
           </tr>
         </tbody>
@@ -276,6 +392,76 @@ async function deleteItem(item) {
   if (error) alert("Delete failed");
   else await loadPartners();
 }
+
+function startEdit(item) {
+  editingId.value = item.id;
+  // shallow copy the item into editForm
+  editForm.value = {
+    organization: item.organization ?? "",
+    area: item.area ?? "",
+    competence: item.competence ?? "",
+    serviceoffers: item.serviceoffers ?? "",
+    institutioncontact: item.institutioncontact ?? "",
+    furtherinfo: item.furtherinfo ?? "",
+    city: item.city ?? "",
+    email: item.email ?? "",
+  };
+}
+
+function cancelEdit() {
+  editingId.value = null;
+  editForm.value = {
+    organization: "",
+    area: "",
+    competence: "",
+    serviceoffers: "",
+    institutioncontact: "",
+    furtherinfo: "",
+    city: "",
+    email: "",
+  };
+}
+
+async function saveEdit(id) {
+  // send only the fields we want to update
+  const { data, error } = await supabase
+    .from("partners")
+    .update({
+      organization: editForm.value.organization,
+      area: editForm.value.area,
+      competence: editForm.value.competence,
+      serviceoffers: editForm.value.serviceoffers,
+      institutioncontact: editForm.value.institutioncontact,
+      furtherinfo: editForm.value.furtherinfo,
+      city: editForm.value.city,
+      email: editForm.value.email,
+    })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error("Update failed:", error);
+    alert("Update failed: " + error.message);
+    return;
+  }
+
+  // reload and close editor
+  await loadPartners();
+  cancelEdit();
+}
+
+// editing state
+const editingId = ref(null);
+const editForm = ref({
+  organization: "",
+  area: "",
+  competence: "",
+  serviceoffers: "",
+  institutioncontact: "",
+  furtherinfo: "",
+  city: "",
+  email: "",
+});
 
 // normalize incoming keys
 const dataList = ref([]);
@@ -455,5 +641,17 @@ tbody tr:nth-child(even) {
 /* Restore visible grid lines on gray rows */
 tbody tr:nth-child(even) td {
   border-color: #999999; /* darker than #ccc */
+}
+/* Ensure the spanning header is always centered regardless of content */
+th[colspan] {
+  text-align: center !important;
+  vertical-align: middle;
+}
+
+/* Ensure the title container doesn't have weird padding issues */
+.w-full.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

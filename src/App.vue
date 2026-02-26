@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-screen">
+  <div class="min-h-screen bg-white">
     <CompetenceList />
   </div>
 </template>
@@ -41,6 +41,5 @@ body,
 #app {
   margin: 0;
   padding: 0;
-  width: 100vw;
 }
 </style>
