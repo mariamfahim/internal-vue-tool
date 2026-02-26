@@ -229,7 +229,7 @@
                   class="border px-2 py-1 w-full"
                 ></textarea>
               </template>
-              <template v-else v-html="item.competence"></template>
+              <template v-else>{{ item.competence }}</template>
             </td>
 
             <!-- Service offers -->
